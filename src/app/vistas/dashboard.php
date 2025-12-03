@@ -14,12 +14,22 @@
         <div class="turno-actual" id="panel-actual">
             <h2>Atendiendo a:</h2>
             <?php if ($turno_actual): ?>
-                <div class="numero-gigante">Turno <?php echo str_pad($turno_actual['id'], 2, '0', STR_PAD_LEFT); ?></div>
-                <div class="alumno-actual"><?php echo htmlspecialchars($turno_actual['nombre']); ?></div>
+                <div class="numero-gigante">Turno <?php echo $turno_actual['id']; ?></div>
+                <div class="alumno-actual"><?php echo $turno_actual['nombre']; ?></div>
             <?php else: ?>
                 <div class="numero-gigante">--</div>
                 <div class="alumno-actual">No hay turnos activos</div>
             <?php endif; ?>
+
+            <div style="margin-top: 20px;">
+                <form action="index.php" method="GET">
+                    <input type="hidden" name="c" value="Alumnos">
+                    <input type="hidden" name="m" value="siguiente">
+                    <button type="submit" class="btn-siguiente">
+                        Llamar al Siguiente
+                    </button>
+                </form>
+            </div>
         </div>
 
         <hr style="border: 0; height: 1px; background: #ddd; margin: 2rem 0;">
@@ -38,8 +48,8 @@
             <?php if (!empty($lista_turnos)): ?>
                 <?php foreach ($lista_turnos as $turno): ?>
                     <div class="fila-alumno">
-                        <span class="turno-id">#<?php echo str_pad($turno['id'], 2, '0', STR_PAD_LEFT); ?></span>
-                        <span class="nombre"><?php echo htmlspecialchars($turno['nombre']); ?></span>
+                        <span class="turno-id">#<?php echo $turno['id']; ?></span>
+                        <span class="nombre"><?php echo $turno['nombre']; ?></span>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

@@ -71,7 +71,7 @@ class Alumno extends Conexion
         // Seleccionamos el turno que está siendo atendido actualmente
         $sql = "
                 SELECT * FROM alumnos_turnos 
-                WHERE estado = 'atendiendo' 
+                WHERE estado = 'atendido' 
                 ORDER BY id ASC 
                 LIMIT 1
             ";
@@ -106,6 +106,26 @@ class Alumno extends Conexion
         $exito = $stmtAtender->execute([$id]);
 
         return $exito;
+    }
+
+    public function avanzarTurno()
+    {
+        // 1. Finalizar el que estaba siendo atendido
+        $sqlCerrar = "UPDATE alumnos_turnos SET estado = 'finalizado' WHERE estado = 'atendido'";
+        $this->conexion->query($sqlCerrar);
+
+        // 2. Buscar el siguiente en espera (el ID más antiguo)
+        $sqlBuscar = "SELECT id FROM alumnos_turnos WHERE estado = 'espera' ORDER BY id ASC LIMIT 1";
+        $stmt = $this->conexion->prepare($sqlBuscar);
+        $stmt->execute();
+        $siguiente = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 3. Si hay alguien esperando, ponerlo como atendido
+        if ($siguiente) {
+            $sqlAbrir = "UPDATE alumnos_turnos SET estado = 'atendido' WHERE id = ?";
+            $stmtUpd = $this->conexion->prepare($sqlAbrir);
+            $stmtUpd->execute([$siguiente['id']]);
+        }
     }
 }
 ?>

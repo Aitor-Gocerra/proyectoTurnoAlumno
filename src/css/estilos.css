@@ -147,3 +147,25 @@ body {
     color: #888;
     margin-right: 10px;
 }
+
+.btn-siguiente {
+    background-color: #4caf50; /* Verde éxito */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-siguiente:hover {
+    background-color: #43a047;
+    transform: scale(1.05);
+}
+
+.btn-siguiente:active {
+    transform: scale(0.95);
+}

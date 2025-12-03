@@ -19,17 +19,24 @@ class CAlumnos
 
     public function index()
     {
-
-        $this->lista_turnos = $this->accion->obtenerSiguientes();
-        $turno_actual = $this->accion->obtenerTurnoActual();
+        $datos = [
+            'lista_turnos' => $this->accion->obtenerSiguientes(),
+            'turno_actual' => $this->accion->obtenerTurnoActual()
+        ];
+        
         $this->vista = 'dashboard';
 
-        return [
-            'lista_turnos' => $this->lista_turnos,
-            'turno_actual' => $turno_actual,
-            'mensaje' => $this->mensaje
-        ];
+        return $datos;
     }
+
+    public function siguiente(){
+            // Ejecutamos la lógica de avanzar turno
+            $this->accion->avanzarTurno();
+
+            // Redirigimos al index para refrescar la pantalla
+            header("Location: index.php");
+            exit();
+        }
 
     public function registrar()
     {
@@ -64,30 +71,6 @@ class CAlumnos
         return [
             'turno_actual' => $turno_actual
         ];
-    }
-
-    public function atender()
-    {
-
-        // Verificar que se haya enviado el ID del turno
-        if (!isset($_GET['id']) || empty($_GET['id'])) {
-            $this->mensaje = "Error: ID de turno no válido.";
-            return $this->index();
-        }
-
-        $id = intval($_GET['id']);
-
-        // Llamamos al Modelo para cambiar el estado
-        $exito = $this->accion->atenderTurno($id);
-
-        if ($exito) {
-            $this->mensaje = "Turno #$id ahora está siendo atendido.";
-        } else {
-            $this->mensaje = "Error al atender el turno.";
-        }
-
-        // Volvemos al dashboard
-        return $this->index();
     }
 }
 ?>
