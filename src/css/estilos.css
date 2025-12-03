@@ -1,0 +1,83 @@
+/* Configuración general de la página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor principal (tarjeta blanca) */
+.container {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* --- DIV 1: TURNO ACTUAL --- */
+.turno-actual {
+    text-align: center;
+    background-color: #e3f2fd; /* Azul muy suave */
+    border: 2px solid #2196f3; /* Borde azul vibrante */
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.turno-actual h2 {
+    margin: 0;
+    color: #1565c0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+}
+
+.numero-gigante {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #0d47a1;
+    margin: 10px 0;
+    line-height: 1;
+}
+
+.alumno-actual {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* --- DIV 2: LISTA DE LOS SIGUIENTES --- */
+.lista-espera {
+    background-color: #fff;
+}
+
+.lista-espera h3 {
+    color: #555;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.fila-alumno {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+}
+
+/* Efecto cebra: oscurece un poco las filas pares para leer mejor */
+.fila-alumno:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.turno-id {
+    font-weight: bold;
+    color: #888;
+    margin-right: 10px;
+}
