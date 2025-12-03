@@ -16,7 +16,7 @@ class Alumno extends Conexion
             ";
 
         $stmt = $this->conexion->prepare($sql);
-        
+
         // Ejecutamos la consulta. Devuelve true si funcionó, false si falló.
         // (Si usas hash, cambia $password por $passwordHash aquí)
         $exito = $stmt->execute([$email, $password]);
@@ -28,11 +28,11 @@ class Alumno extends Conexion
             // Retorna false o null si hubo un error
             return null;
         }
-    }  */  
+    }  */
 
     public function crearTurno($nombre)
     {
-   
+
         $sql = "
             INSERT INTO alumnos_turnos (nombre) 
             VALUES (?)";
@@ -41,7 +41,7 @@ class Alumno extends Conexion
         $exito = $stmt->execute([$nombre]);
 
         if ($exito) {
-            return $this->conexion->lastInsertId(); 
+            return $this->conexion->lastInsertId();
         } else {
             return false;
         }
@@ -51,7 +51,7 @@ class Alumno extends Conexion
     {
         // Seleccionamos los que están en 'espera'
         // ORDER BY id ASC asegura que salgan en el orden que llegaron
-        // LIMIT 10 asegura que solo traigas los próximos 5
+        // LIMIT 5 asegura que solo traigas los próximos 5
         $sql = "
                 SELECT * FROM alumnos_turnos 
                 WHERE estado = 'espera' 
@@ -64,6 +64,48 @@ class Alumno extends Conexion
 
         // Usamos fetchAll para obtener UNA LISTA de resultados, no solo uno.
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerTurnoActual()
+    {
+        // Seleccionamos el turno que está siendo atendido actualmente
+        $sql = "
+                SELECT * FROM alumnos_turnos 
+                WHERE estado = 'atendiendo' 
+                ORDER BY id ASC 
+                LIMIT 1
+            ";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
+
+        // Usamos fetch para obtener UN SOLO resultado
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function atenderTurno($id)
+    {
+        // Primero, marcamos el turno actual (si existe) como finalizado
+        $sqlFinalizar = "
+                UPDATE alumnos_turnos 
+                SET estado = 'finalizado' 
+                WHERE estado = 'atendiendo'
+            ";
+
+        $stmtFinalizar = $this->conexion->prepare($sqlFinalizar);
+        $stmtFinalizar->execute();
+
+        // Luego, cambiamos el estado del turno seleccionado a 'atendiendo'
+        $sqlAtender = "
+                UPDATE alumnos_turnos 
+                SET estado = 'atendiendo' 
+                WHERE id = ?
+            ";
+
+        $stmtAtender = $this->conexion->prepare($sqlAtender);
+        $exito = $stmtAtender->execute([$id]);
+
+        return $exito;
     }
 }
 ?>

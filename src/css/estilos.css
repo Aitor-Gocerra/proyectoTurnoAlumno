@@ -16,14 +16,16 @@ body {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* --- DIV 1: TURNO ACTUAL --- */
 .turno-actual {
     text-align: center;
-    background-color: #e3f2fd; /* Azul muy suave */
-    border: 2px solid #2196f3; /* Borde azul vibrante */
+    background-color: #e3f2fd;
+    /* Azul muy suave */
+    border: 2px solid #2196f3;
+    /* Borde azul vibrante */
     padding: 2rem;
     border-radius: 10px;
     margin-bottom: 2rem;
@@ -51,7 +53,71 @@ body {
     color: #333;
 }
 
-/* --- DIV 2: LISTA DE LOS SIGUIENTES --- */
+/* --- DIV 2: FORMULARIO DE REGISTRO --- */
+.registro {
+    background-color: #f1f8e9;
+    /* Verde muy suave */
+    border: 2px solid #66bb6a;
+    /* Borde verde */
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.registro h2 {
+    margin: 0 0 1rem 0;
+    color: #2e7d32;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.registro form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.registro input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 15px;
+    border: 2px solid #a5d6a7;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.registro input[type="text"]:focus {
+    outline: none;
+    border-color: #66bb6a;
+    background-color: #fff;
+}
+
+.registro button {
+    padding: 12px 25px;
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.registro button:hover {
+    background-color: #4caf50;
+    transform: translateY(-2px);
+}
+
+.registro button:active {
+    transform: translateY(0);
+}
+
+/* --- DIV 3: LISTA DE LOS SIGUIENTES --- */
 .lista-espera {
     background-color: #fff;
 }
