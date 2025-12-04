@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../modelos/mAlumnos.php';
+require_once RUTA_MODELOS . '/mAlumnos.php';
 
 class CAlumnos
 {
@@ -23,20 +23,21 @@ class CAlumnos
             'lista_turnos' => $this->accion->obtenerSiguientes(),
             'turno_actual' => $this->accion->obtenerTurnoActual()
         ];
-        
+
         $this->vista = 'dashboard';
 
         return $datos;
     }
 
-    public function siguiente(){
-            // Ejecutamos la lógica de avanzar turno
-            $this->accion->avanzarTurno();
+    public function siguiente()
+    {
+        // Ejecutamos la lógica de avanzar turno
+        $this->accion->avanzarTurno();
 
-            // Redirigimos al index para refrescar la pantalla
-            header("Location: index.php");
-            exit();
-        }
+        // Redirigimos al index para refrescar la pantalla
+        header("Location: index.php");
+        exit();
+    }
 
     public function registrar()
     {
