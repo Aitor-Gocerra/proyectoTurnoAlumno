@@ -1,13 +1,16 @@
 <?php
-    require_once __DIR__ . '/../config/configDB.php';
+require_once __DIR__ . '/../config/configDB.php';
 
-    class Conexion {
-        
-        protected $conexion;
+class Conexion
+{
 
-        public function __construct(){
-            
-            $this->conexion = new PDO (
+    protected $conexion;
+
+    public function __construct()
+    {
+
+        try {
+            $this->conexion = new PDO(
                 "mysql:host=" . servidor .
                 ";dbname=" . nombreDB . ";charset=UTF8",
                 usuario,
@@ -18,11 +21,14 @@
                     PDO::ATTR_EMULATE_PREPARES => false
                 ]
             );
-        }
-
-        public function __destruct()
-        {
-            $this->conexion = null;
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
+
+    public function __destruct()
+    {
+        $this->conexion = null;
+    }
+}
 ?>
