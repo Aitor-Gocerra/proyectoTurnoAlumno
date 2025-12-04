@@ -26,7 +26,7 @@ if ($objControlador->vista != '') { // Comprueba si el controlador tiene una vis
     if (is_array($datos)) { // Comprueba si los datos son un array y extrae dichos datos en forma de array asociativo para trabajar con variables claras
         extract($datos);
     }
-    require_once RUTA_VISTAS . $objControlador->vista . '.php';
+    require_once RUTA_VISTAS . '\' . $objControlador->vista . '.php';
 } 
 
 ?>
